@@ -8,8 +8,8 @@ function useFetchData(url, query) {
     useEffect(() => {
         const controller = new AbortController();
         async function fetchData() {
+            setIsLoading(true)
             try {
-                setIsLoading(true)
                 const { data } = await axios.get(`${url}?${query}`, { signal: controller.signal })
                 setData(data)
             }
@@ -18,9 +18,9 @@ function useFetchData(url, query) {
                     console.log('Request canceled');
                 } else {
                     setData([])
+                    console.log("error")
                     setError(err.response.data.error)
                 }
-
             }
             finally {
                 setIsLoading(false)

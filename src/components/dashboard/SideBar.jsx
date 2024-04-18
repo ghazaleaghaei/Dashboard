@@ -1,32 +1,42 @@
-import { Link } from "react-router-dom"
-import { useFetchData, Arrow, SubMenu } from "../Exports"
+import { useNavigate } from "react-router-dom"
+import { HomeIcon, LogoutIcon, Menu } from "../Exports"
+import { useAuth } from "../context/AuthProvider"
 import { useState } from "react"
 
-function SideBar() {
-    const { data, isLoading, error } = useFetchData("http://localhost:5000/sidebar", "")
-    const [toggle, setToggle] = useState({ open: false, id: 0 })
+function SideBar({ onOpenHandler, open }) {
+    const [isOpen, setIsOpen] = useState(0)
+    const onShowHandler = (id) => {
+        isOpen === id ? setIsOpen(0) : setIsOpen(id)
+    }
+    const { logout } = useAuth()
+    const navigate = useNavigate()
+    const logoutHandler = () => {
+        logout()
+        navigate("/", { replace: false })
+    }
     return (
-        <aside class="bg-white rounded-lg p-4 m-3 border shadow-md overflow-x-auto">
-            {data.map(item =>
-                <div class="w-full flex flex-col"
-                    key={item.id}
-                    onClick={() => setToggle({ open: !toggle.open, id: item.id })}
-                >
-                    <div class="flex text-gray-600 text-sm gap-4 items-center">
-                        <div
-                            class="[&>svg]:w-6 [&>svg]:fill-gray-600"
-                            dangerouslySetInnerHTML={{ __html: item.icon }}
-                        />
-                        <Link to={item.link}>
-                            {item.title}
-                        </Link>
-                        {item.children.length > 0 &&
-                            <Arrow class="ms-auto w-5 aspect-square cursor-pointer" />
-                        }
-                    </div>
-                    <SubMenu item={item} toggle={toggle} />
-                </div>
-            )}
+        <aside class="bg-white rounded-lg px-4 m-3 border shadow-md min-h-screen overflow-hidden">
+            <button
+                onClick={() => {
+                    onOpenHandler(!open),
+                        setIsOpen(0)
+                }}
+                class="flex items-center gap-4 mt-5 mb-8"
+            >
+                <HomeIcon class="w-8 aspect-square fill-black" />
+                AMSol
+            </button>
+            <Menu
+                onShowHandler={onShowHandler}
+                isOpen={isOpen}
+            />
+            <button
+                onClick={logoutHandler}
+                class="text-red-700 my-5 flex gap-6 md:gap-4 items-center font-bold"
+            >
+                <LogoutIcon class="w-6 aspect-square fill-red-700" />
+                Logout
+            </button>
         </aside>
     )
 }

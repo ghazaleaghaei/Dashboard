@@ -3,8 +3,8 @@ import { useAuth } from "../context/AuthProvider"
 import { useNavigate } from "react-router-dom"
 
 function Login() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("ghazale@gmail.com")
+    const [password, setPassword] = useState("123456")
     const [error, setError] = useState("")
     const { login, isAuthenticated } = useAuth()
     const navigate = useNavigate()
@@ -14,13 +14,13 @@ function Login() {
         !isAuthenticated && setError("wrong email or password")
     }
     useEffect(() => {
-        if (isAuthenticated) navigate("/")
+        if (isAuthenticated) navigate("/dashboard", { replace: true })
     }, [isAuthenticated, navigate])
     return (
         <section class="bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 h-screen flex items-center">
             <form
                 onSubmit={submitHandler}
-                class="w-2/5 aspect-[3/2] mx-auto my-auto bg-gradient-to-r from-blue-300 via-cyan-200 to-sky-300 flex flex-col rounded-lg p-8 gap-2">
+                class="w-11/12 sm:w-2/3 lg:w-2/5 aspect-[3/2] mx-auto my-auto bg-gradient-to-r from-blue-300 via-cyan-200 to-sky-300 flex flex-col rounded-lg p-8 gap-2">
                 <strong class="text-center text-3xl text-slate-900">
                     login
                 </strong>

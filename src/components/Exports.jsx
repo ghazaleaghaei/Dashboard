@@ -7,6 +7,10 @@ import Login from "./login/Login"
 import useFetchData from "../hooks/useFetchData"
 import SubMenu from "./dashboard/SubMenu"
 import SideBar from "./dashboard/SideBar"
+import HomeIcon from "./svg/HomeIcon"
+import LogoutIcon from "./svg/LogoutIcon"
+import Menu from "../components/dashboard/Menu"
+import Close from "./svg/Close"
 
 export { Header }
 export { Arrow }
@@ -17,3 +21,7 @@ export { Login }
 export { useFetchData }
 export { SubMenu }
 export { SideBar }
+export { HomeIcon }
+export { LogoutIcon }
+export { Menu }
+export { Close }
