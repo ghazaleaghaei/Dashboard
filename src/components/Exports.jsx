@@ -11,6 +11,12 @@ import HomeIcon from "./svg/HomeIcon"
 import LogoutIcon from "./svg/LogoutIcon"
 import Menu from "../components/dashboard/Menu"
 import Close from "./svg/Close"
+import Main from "./dashboard/Main"
+import ListIcon from "./svg/ListIcon"
+import UserIcon from "./svg/UserIcon"
+import DashboardHeader from "./dashboard/DashboardHeader"
+import ProductList from "./dashboard/ProductList"
+import Trash from "./svg/Trash"
 
 export { Header }
 export { Arrow }
@@ -25,3 +31,9 @@ export { HomeIcon }
 export { LogoutIcon }
 export { Menu }
 export { Close }
+export { Main }
+export { ListIcon }
+export { UserIcon }
+export { DashboardHeader }
+export { ProductList }
+export { Trash }

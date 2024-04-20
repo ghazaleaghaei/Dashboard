@@ -21,7 +21,7 @@ function SideBar({ onOpenHandler, open }) {
                     onOpenHandler(!open),
                         setIsOpen(0)
                 }}
-                class="flex items-center gap-4 mt-5 mb-8"
+                class="flex items-center gap-4 mt-5 mb-8 font-bold"
             >
                 <HomeIcon class="w-8 aspect-square fill-black" />
                 AMSol

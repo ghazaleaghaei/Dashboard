@@ -8,7 +8,7 @@ function Dashboard() {
         setOpen(e)
     }
     return (
-        <section class={`bg-gray-100 grid duration-300 overflow-hidden ${open ? "grid-cols-[300px_minmax(auto,_1fr)]" : "grid-cols-[80px_minmax(auto,_1fr)]"}`}>
+        <section class={`w-full max-w-7xl mx-auto bg-gray-100 grid duration-300 overflow-hidden ${open ? "grid-cols-[300px_minmax(auto,_1fr)]" : "grid-cols-[80px_minmax(auto,_1fr)]"}`}>
             <SideBar
                 onOpenHandler={onOpenHandler}
                 open={open}

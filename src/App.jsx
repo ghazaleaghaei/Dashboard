@@ -1,6 +1,6 @@
-import { Outlet, Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import AuthProvider from "./components/context/AuthProvider"
-import { Header, ProtectedRouted, Dashboard, Login } from "./components/Exports"
+import { Header, ProtectedRouted, Dashboard, Login, Main } from "./components/Exports"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
 
@@ -18,7 +18,7 @@ function App() {
                                 <Dashboard />
                             </ProtectedRouted>}
                         >
-                            <Route index element={<p>dashboard</p>} />
+                            <Route index element={<Main />} />
                             <Route path="user" element={<p>user</p>} />
                             <Route path="store" element={<p>store</p>} />
                             <Route path="price" element={<p>price</p>} />
