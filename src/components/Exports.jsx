@@ -17,6 +17,7 @@ import UserIcon from "./svg/UserIcon"
 import DashboardHeader from "./dashboard/DashboardHeader"
 import ProductList from "./dashboard/ProductList"
 import Trash from "./svg/Trash"
+import Plus from "./svg/Plus"
 
 export { Header }
 export { Arrow }
@@ -37,3 +38,4 @@ export { UserIcon }
 export { DashboardHeader }
 export { ProductList }
 export { Trash }
+export { Plus }

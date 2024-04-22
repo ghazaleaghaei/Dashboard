@@ -1,15 +1,17 @@
-import { Arrow, Trash, useFetchData } from "../Exports"
+import { useState } from "react"
+import { Arrow, Plus, Trash, useFetchData } from "../Exports"
 
 function ProductList() {
     const { data, isLoading, error } = useFetchData(" http://localhost:5000/products", "_page=2&_limit=2")
     console.log(data)
     return (
-        <div class="rounded-lg bg-white border shadow-md p-3 m-3">
+        <div class="rounded-lg bg-white border shadow-md p-3 m-3 overflow-auto">
             <div class="flex gap-4">
                 <button
-                    class="bg-teal-50 border border-2 border-teal-500 rounded-md px-2 py-1.5 font-semibold text-sm text-teal-500 duration-300 hover:scale-95"
+                    class="bg-teal-50 border border-2 border-teal-500 rounded-md px-2 py-1.5 font-semibold text-sm text-teal-500 duration-300 hover:scale-95 flex items-center gap-1"
                 >
-                    &#43; &nbsp;ADD
+                    <Plus class="w-5 aspect-square fill-teal-500" />
+                    ADD
                 </button>
                 <button class="bg-rose-50 border border-2 border-rose-400 rounded-md px-2 py-1.5 font-semibold text-sm text-rose-500 flex items-center gap-1 duration-300 hover:scale-95">
                     <Trash class="w-5 aspect-square fill-rose-500" />
@@ -27,23 +29,46 @@ function ProductList() {
                 </select>
                 <input placeholder="Search" type="text" class="outline-none rounded-md placeholder:text-gray-400 px-3 border max-w-48" />
             </div>
-            <table class="table-auto w-full">
-                <tr class="*:font-normal *:bg-gray-100 *:rounded-md *:px-2 *:border *:text-start">
-                    <th class="flex"><input type="checkbox" />Image</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>Permissions</th>
-                    <th>Action</th>
-                </tr>
-                {data.map(item => <tr key={item.id}>
-                    <td class="w-5"><input type="checkbox" />Image</td>
-                    <td>{item.name}</td>
-                    <td>{item.price}</td>
-                    <td>{item.status}</td>
-                    <td>{item.permission}</td>
-                    <td>{item.action}</td>
-                </tr>)}
+            <table class="table-auto w-full my-4 border-separate border-spacing-1">
+                <thead>
+                    <tr class="text-sm text-gray-800 *:font-normal *:bg-gray-100 *:rounded-sm *:px-4 *:py-1 *:font-medium *:border *:text-start">
+                        <th class="flex gap-2">
+                            <input type="checkbox" />
+                            Image
+                        </th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Permissions</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm">
+                    {data.map(item =>
+                        <tr
+                            class="*:px-4 *:py-2 border-b"
+                            key={item.id}
+                        >
+                            <td class="flex gap-2">
+                                <input type="checkbox" />
+                                <img src={item.image} alt={item.name} class="w-10 aspect-[4/5] object-cover ms-5" />
+                            </td>
+                            <td>{item.name}</td>
+                            <td>{item.price}&nbsp;Tk</td>
+                            <td>
+                                <button
+                                    class={`w-7 aspect-[5/3] rounded-lg relative before:absolute before:start-1 before:top-0.5 before:w-1 before:aspect-square before:rounded-full before:bg-gray-600 before:p-1.5 ${item.status ? "before:translate-x-full bg-blue-300" : "before:translate-x-0 bg-gray-300"}`}
+                                    onClick={() => { }} />
+                            </td>
+                            <td>{item.permissions.map(permission =>
+                                <span class={`p-1 border rounded-md mx-1 ${permission === "pending" ? "bg-yellow-100 text-yellow-500" : permission === "read" ? "bg-blue-100 text-blue-500" : permission === "active" ? "bg-sky-100 text-sky-500" : permission === "delete" ? "bg-red-100 text-red-500" : permission === "edit" ? "bg-gray-100 text-500" : "bg-green-100 text-green-500"}`}>
+                                    {permission}
+                                </span>
+                            )}
+                            </td>
+                            <td>{item.action}</td>
+                        </tr>)}
+                </tbody>
             </table>
 
         </div>
