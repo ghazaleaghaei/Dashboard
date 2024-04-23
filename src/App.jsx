@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import AuthProvider from "./components/context/AuthProvider"
-import { Header, ProtectedRouted, Dashboard, Login, Main } from "./components/Exports"
+import { Header, ProtectedRouted, Dashboard, Login, Main, NewProduct } from "./components/Exports"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
 
@@ -30,6 +30,7 @@ function App() {
                             <Route path="store/:id" element={<p>title</p>} />
                             <Route path="price/:id" element={<p>title</p>} />
                             <Route path="inventory/:id" element={<p>title</p>} />
+                            <Route path="add" element={<NewProduct />} />
                         </Route>
                     </Routes>
                 </AuthProvider>

@@ -1,14 +1,24 @@
-import { useState } from "react"
-import { Arrow, Plus, Trash, useFetchData } from "../Exports"
+import { useEffect, useState } from "react"
+import { Arrow, EditIcon, Plus, Trash, useFetchData } from "../Exports"
+import { useDispatch, useSelector } from "react-redux"
+import { getProducts } from "../../features/data/dataSlice"
+import { useNavigate } from "react-router-dom"
 
 function ProductList() {
-    const { data, isLoading, error } = useFetchData(" http://localhost:5000/products", "_page=2&_limit=2")
-    console.log(data)
+    const { products, loading, error } = useSelector((state) => state.productsData)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    useEffect(() => {
+        dispatch(getProducts())
+    }, [])
+    if (loading) return <p>loading.....</p>
+    if (error.length > 0) return <p>{error}</p>
     return (
         <div class="rounded-lg bg-white border shadow-md p-3 m-3 overflow-auto">
             <div class="flex gap-4">
                 <button
                     class="bg-teal-50 border border-2 border-teal-500 rounded-md px-2 py-1.5 font-semibold text-sm text-teal-500 duration-300 hover:scale-95 flex items-center gap-1"
+                    onClick={() => { navigate("add") }}
                 >
                     <Plus class="w-5 aspect-square fill-teal-500" />
                     ADD
@@ -44,7 +54,7 @@ function ProductList() {
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm">
-                    {data.map(item =>
+                    {products.map(item =>
                         <tr
                             class="*:px-4 *:py-2 border-b"
                             key={item.id}
@@ -60,13 +70,21 @@ function ProductList() {
                                     class={`w-7 aspect-[5/3] rounded-lg relative before:absolute before:start-1 before:top-0.5 before:w-1 before:aspect-square before:rounded-full before:bg-gray-600 before:p-1.5 ${item.status ? "before:translate-x-full bg-blue-300" : "before:translate-x-0 bg-gray-300"}`}
                                     onClick={() => { }} />
                             </td>
-                            <td>{item.permissions.map(permission =>
-                                <span class={`p-1 border rounded-md mx-1 ${permission === "pending" ? "bg-yellow-100 text-yellow-500" : permission === "read" ? "bg-blue-100 text-blue-500" : permission === "active" ? "bg-sky-100 text-sky-500" : permission === "delete" ? "bg-red-100 text-red-500" : permission === "edit" ? "bg-gray-100 text-500" : "bg-green-100 text-green-500"}`}>
+                            <td>{item.permissions.map((permission, index) =>
+                                <span key={index}
+                                    class={`p-1 border rounded-md mx-1 ${permission === "pending" ? "bg-yellow-100 text-yellow-500" : permission === "read" ? "bg-blue-100 text-blue-500" : permission === "active" ? "bg-sky-100 text-sky-500" : permission === "delete" ? "bg-red-100 text-red-500" : permission === "edit" ? "bg-gray-100 text-500" : "bg-green-100 text-green-500"}`}>
                                     {permission}
                                 </span>
                             )}
                             </td>
-                            <td>{item.action}</td>
+                            <td class="flex gap-2 items-center">
+                                <button>
+                                    <EditIcon class="w-5 aspect-square fill-gray-600" />
+                                </button>
+                                <button>
+                                    <Trash class="w-5 aspect-square fill-gray-600" />
+                                </button>
+                            </td>
                         </tr>)}
                 </tbody>
             </table>

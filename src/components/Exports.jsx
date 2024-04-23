@@ -18,6 +18,8 @@ import DashboardHeader from "./dashboard/DashboardHeader"
 import ProductList from "./dashboard/ProductList"
 import Trash from "./svg/Trash"
 import Plus from "./svg/Plus"
+import EditIcon from "./svg/EditIcon"
+import NewProduct from "./dashboard/NewProduct"
 
 export { Header }
 export { Arrow }
@@ -39,3 +41,5 @@ export { DashboardHeader }
 export { ProductList }
 export { Trash }
 export { Plus }
+export { EditIcon }
+export { NewProduct }
