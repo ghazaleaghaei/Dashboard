@@ -11,8 +11,7 @@ export const getProducts = createAsyncThunk(
     'products/getProducts',
     async (_, thunkAPI) => {
         try {
-            const response = await axios.get("http://localhost:5000/products?_page=1&_limit=2")
-            console.log(response)
+            const response = await axios.get("http://localhost:5000/products?_page=6&_limit=2")
             return response.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message)
@@ -25,9 +24,12 @@ export const addProduct = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const response = await axios.post("http://localhost:5000/products", {
-                title: payload.title,
                 id: Date.now(),
-                completed: false
+                image: payload.image,
+                name: payload.name,
+                price: payload.price,
+                status: payload.status,
+                permissions: payload.permissions
             })
             return response.data
         } catch (error) {
@@ -107,14 +109,14 @@ const dataSlice = createSlice({
             }),
             builder.addCase(addProduct.fulfilled, (state, action) => {
                 state.loading = false;
-                state.todo.push(action.payload)
+                state.products.push(action.payload)
             }),
             builder.addCase(deleteProduct.pending, (state, action) => {
                 state.loading = true;
             }),
             builder.addCase(deleteProduct.fulfilled, (state, action) => {
                 state.loading = false;
-                state.todo = state.todo.filter(item => item.id !== action.payload.id)
+                state.products = state.products.filter(item => item.id !== action.payload.id)
             }),
             builder.addCase(toggleProduct.fulfilled, (state, action) => {
                 const selectedTodo = state.todo.find(item => item.id === action.payload.id);

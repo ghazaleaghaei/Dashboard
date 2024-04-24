@@ -30,8 +30,8 @@ function App() {
                             <Route path="store/:id" element={<p>title</p>} />
                             <Route path="price/:id" element={<p>title</p>} />
                             <Route path="inventory/:id" element={<p>title</p>} />
-                            <Route path="add" element={<NewProduct />} />
                         </Route>
+                        <Route path="dashboard/add" element={<NewProduct />} />
                     </Routes>
                 </AuthProvider>
             </Provider>
