@@ -10,7 +10,7 @@ function useFetchData(url, query) {
         async function fetchData() {
             setIsLoading(true)
             try {
-                const { data } = await axios.get(`${url}?${query}`, { signal: controller.signal })
+                const { data } = await axios.get(`${url}/${query}`, { signal: controller.signal })
                 setData(data)
             }
             catch (err) {

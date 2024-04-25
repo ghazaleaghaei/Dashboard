@@ -258,24 +258,13 @@
       ]
     },
     {
-      "id": 1713971843785,
-      "image": "blob:http://localhost:5173/8fd5bf1e-bbdf-48b6-9c67-5c12d7189cdc",
-      "name": "fff",
-      "price": 3444444444,
+      "id": 1714042887227,
+      "image": "blob:http://localhost:5173/28a007ec-b526-4439-be27-1576177abe5e",
+      "name": "dddddd",
+      "price": 444,
       "status": true,
       "permissions": [
-        "pending",
-        "edit"
-      ]
-    },
-    {
-      "id": 1713971876333,
-      "image": "blob:http://localhost:5173/c9d61e69-05b4-4382-913d-29a718faf908",
-      "name": "dddddddd",
-      "price": 4544,
-      "status": true,
-      "permissions": [
-        "delete"
+        "active"
       ]
     }
   ],

@@ -11,7 +11,7 @@ export const getProducts = createAsyncThunk(
     'products/getProducts',
     async (_, thunkAPI) => {
         try {
-            const response = await axios.get("http://localhost:5000/products?_page=6&_limit=2")
+            const response = await axios.get("http://localhost:5000/products?_page=1&_limit=2")
             return response.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message)
@@ -55,7 +55,7 @@ export const toggleProduct = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const response = await axios.patch(`http://localhost:5000/procuts/${payload.id}`, {
-                completed: payload.completed
+                status: payload.status
             })
             return response.data
         } catch (error) {
@@ -119,8 +119,8 @@ const dataSlice = createSlice({
                 state.products = state.products.filter(item => item.id !== action.payload.id)
             }),
             builder.addCase(toggleProduct.fulfilled, (state, action) => {
-                const selectedTodo = state.todo.find(item => item.id === action.payload.id);
-                selectedTodo.completed = action.payload.completed;
+                const selectedProduct = state.products.find(item => item.id === action.payload.id);
+                selectedProduct.status = action.payload.status;
             }),
             builder.addCase(editProduct.pending, (state, action) => {
                 state.loading = true;

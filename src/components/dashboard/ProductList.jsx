@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Arrow, EditIcon, Plus, Trash, useFetchData } from "../Exports"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteProduct, getProducts } from "../../features/data/dataSlice"
+import { deleteProduct, getProducts, toggleProduct } from "../../features/data/dataSlice"
 import { useNavigate } from "react-router-dom"
 
 function ProductList() {
@@ -41,9 +41,9 @@ function ProductList() {
                 </select>
                 <input placeholder="Search" type="text" class="outline-none rounded-md placeholder:text-gray-400 px-3 border max-w-48" />
             </div>
-            <table class="table-auto w-full my-4 border-separate border-spacing-1">
+            <table class="table-auto w-full my-4">
                 <thead>
-                    <tr class="text-sm text-gray-800 *:font-normal *:bg-gray-100 *:rounded-sm *:px-4 *:py-1 *:font-medium *:border *:text-start">
+                    <tr class="text-sm text-gray-800 *:font-normal *:bg-gray-100 *:rounded-sm *:px-4 *:py-1 *:font-medium *:border *:border-2 *:border-white *:text-start">
                         <th class="flex gap-2">
                             <input type="checkbox" />
                             Image
@@ -58,7 +58,7 @@ function ProductList() {
                 <tbody class="text-gray-600 text-sm">
                     {products.map(item =>
                         <tr
-                            class={`*:px-4 *:py-2 border-b ${item.id === id && "bg-sky-100"}`}
+                            class={`*:px-4 *:py-2 border-b last:border-b-0 ${item.id === id && "bg-sky-50"}`}
                             key={item.id}
                         >
                             <td class="flex gap-2">
@@ -66,7 +66,7 @@ function ProductList() {
                                     type="checkbox"
                                     checked={item.id === id}
                                     onChange={() => {
-                                        setId(item.id)
+                                        item.id === id ? setId(0) : setId(item.id)
                                     }} />
                                 <img src={item.image} alt={item.name} class="w-10 aspect-[4/5] object-cover ms-5" />
                             </td>
@@ -76,7 +76,12 @@ function ProductList() {
                                 <button
                                     disabled={item.id !== id}
                                     class={`w-7 aspect-[5/3] rounded-lg relative before:absolute before:start-1 before:top-0.5 before:w-1 before:aspect-square before:rounded-full before:bg-gray-600 before:p-1.5 ${item.status ? "before:translate-x-full bg-blue-300" : "before:translate-x-0 bg-gray-300"}`}
-                                    onClick={() => { }} />
+                                    onClick={() => {
+                                        dispatch(toggleProduct({
+                                            id,
+                                            status: !item.status
+                                        }))
+                                    }} />
                             </td>
                             <td>{item.permissions.map((permission, index) =>
                                 <span key={index}
@@ -85,18 +90,25 @@ function ProductList() {
                                 </span>
                             )}
                             </td>
-                            <td class="flex gap-2 items-center">
-                                <button
-                                    onClick={() => { }}
-                                    disabled={item.id !== id}
-                                >
-                                    <EditIcon class="w-5 aspect-square fill-gray-600" />
-                                </button>
-                                <button
-                                    onClick={() => { dispatch(deleteProduct({ id })) }}
-                                    disabled={item.id !== id}>
-                                    <Trash class="w-5 aspect-square fill-gray-600" />
-                                </button>
+                            <td >
+                                <div class="flex gap-2">
+                                    <button
+                                        class="hover:bg-gray-200 duration-500 rounded-full w-fit aspect-square p-2"
+                                        onClick={() => {
+                                            navigate(`/dashboard/edit/${id}`);
+                                        }}
+                                        disabled={item.id !== id}
+                                    >
+                                        <EditIcon class="w-5 aspect-square fill-gray-600" />
+                                    </button>
+                                    <button
+                                        class="hover:bg-red-200 duration-500 rounded-full w-fit aspect-square p-2 group"
+                                        onClick={() => { dispatch(deleteProduct({ id })) }}
+                                        disabled={item.id !== id}
+                                    >
+                                        <Trash class="w-5 aspect-square fill-gray-600 group-hover:fill-red-600" />
+                                    </button>
+                                </div>
                             </td>
                         </tr>)}
                 </tbody>

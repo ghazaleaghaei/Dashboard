@@ -32,6 +32,7 @@ function App() {
                             <Route path="inventory/:id" element={<p>title</p>} />
                         </Route>
                         <Route path="dashboard/add" element={<NewProduct />} />
+                        <Route path="dashboard/edit/:id" element={<NewProduct />} />
                     </Routes>
                 </AuthProvider>
             </Provider>

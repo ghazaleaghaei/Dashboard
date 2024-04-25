@@ -1,10 +1,16 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { addProduct } from "../../features/data/dataSlice"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useFetchData } from "../Exports"
 
 function NewProduct() {
+    const location = useLocation()
+    const edit = location.pathname.split("/")[2] === "edit" ? true : false
+    const id = edit && Number(location.pathname.split("/")[3])
+    const { data, isLoading, error: Error } = edit && useFetchData("http://localhost:5000/products", id)
     const [name, setName] = useState("")
+    console.log(name)
     const [image, setImage] = useState("")
     const [price, setPrice] = useState(0)
     const [status, setStatus] = useState(false)
@@ -20,6 +26,14 @@ function NewProduct() {
     const [error, setError] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setName(data.name),
+            setImage(data.image),
+            setPrice(data.price),
+            setStatus(data.status)
+
+    }, [data])
 
     const handelChange = (e) => {
         const { name } = e.target;
@@ -52,12 +66,12 @@ function NewProduct() {
     }
 
     return (
-        <section class="bg-fuchsia-100 w-full h-screen p-8">
+        <section class="bg-fuchsia-100 w-full min-h-screen p-8">
             <form
                 onSubmit={submitHandler}
                 class="w-11/12 sm:w-2/3 lg:w-2/5 aspect-[3/2] mx-auto my-auto bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 flex flex-col rounded-lg p-8 gap-2">
                 <strong class="text-center text-3xl text-slate-900">
-                    Add New Product
+                    {edit ? "Edit" : "Add New Product"}
                 </strong>
                 <span class="text-red-600 text-center">{error}</span>
                 <label class="text-violet-950">
@@ -163,7 +177,7 @@ function NewProduct() {
                     </label>
                 </div>
                 <button class="border border-2 border-fuchsia-900 text-fuchsia-900 w-fit self-center px-2 py-1 rounded-lg hover:bg-fuchsia-800 duration-300 hover:border-fuchsia-300 hover:text-fuchsia-100">
-                    submit
+                    {edit ? "Edit" : "submit"}
                 </button>
             </form>
         </section>
