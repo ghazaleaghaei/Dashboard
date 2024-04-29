@@ -144,10 +144,10 @@
   "products": [
     {
       "id": 1,
-      "image": "https://storage.new.pelakino.com/itempartvalue/d055db61-85ed-4421-969a-074325a2de26/768",
-      "name": "coffee maker",
-      "price": 4122,
-      "status": true,
+      "image": "blob:http://localhost:5173/476434f8-bac5-4423-97f7-ba672da7463e",
+      "name": "coffee makerrrr",
+      "price": 444444444,
+      "status": false,
       "permissions": [
         "pending"
       ],

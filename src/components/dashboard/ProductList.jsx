@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Arrow, EditIcon, Plus, Trash, useFetchData } from "../Exports"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteProduct, getProducts, toggleProduct } from "../../features/data/dataSlice"
+import { deleteProduct, edit, getProducts, toggleProduct } from "../../features/data/dataSlice"
 import { useNavigate } from "react-router-dom"
 
 function ProductList() {
@@ -96,6 +96,7 @@ function ProductList() {
                                         class="hover:bg-gray-200 duration-500 rounded-full w-fit aspect-square p-2"
                                         onClick={() => {
                                             navigate(`/dashboard/edit/${id}`);
+                                            dispatch(edit({ id }))
                                         }}
                                         disabled={item.id !== id}
                                     >

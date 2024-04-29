@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
-import { addProduct } from "../../features/data/dataSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { addProduct, editProduct } from "../../features/data/dataSlice"
 import { useLocation, useNavigate } from "react-router-dom"
-import { useFetchData } from "../Exports"
 
 function NewProduct() {
     const location = useLocation()
     const edit = location.pathname.split("/")[2] === "edit" ? true : false
     const id = edit && Number(location.pathname.split("/")[3])
-    const { data, isLoading, error: Error } = edit && useFetchData("http://localhost:5000/products", id)
+    const { loading, editedProduct } = useSelector((state) => state.productsData)
     const [name, setName] = useState("")
-    console.log(name)
     const [image, setImage] = useState("")
     const [price, setPrice] = useState(0)
     const [status, setStatus] = useState(false)
@@ -28,19 +26,26 @@ function NewProduct() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setName(data.name),
-            setImage(data.image),
-            setPrice(data.price),
-            setStatus(data.status)
+        setName(editedProduct[0].name),
+            setImage(editedProduct[0].image),
+            setPrice(editedProduct[0].price),
+            setStatus(editedProduct[0].status),
+            editedProduct[0]?.permissions?.map(item => {
+                setPermission(prevState => ({
+                    ...prevState,
+                    [item]: true
+                }))
+            })
 
-    }, [data])
+    }, [editedProduct[0]])
 
     const handelChange = (e) => {
         const { name } = e.target;
-        setPermission(prevState => ({
-            ...prevState,
-            [name]: !permission.name
-        }))
+        console.log(name)
+        setPermission({
+            ...permission,
+            [name]: !permission[name]
+        })
     }
 
     const handelImageChange = (e) => {
@@ -55,7 +60,14 @@ function NewProduct() {
         Object.entries(permission).forEach(([key, value]) => {
             value && permissions.push(key)
         });
-        dispatch(addProduct({
+        dispatch(edit ? editProduct({
+            id: id,
+            image: image,
+            name: name,
+            price: Number(price),
+            status: status,
+            permission: permissions
+        }) : addProduct({
             image: image,
             name: name,
             price: Number(price),
@@ -103,7 +115,7 @@ function NewProduct() {
                 <label class="text-violet-950 flex gap-2">
                     <input
                         type="checkbox"
-                        value={status}
+                        checked={status}
                         onChange={() => setStatus(!status)}
                     />
                     Status
@@ -115,63 +127,63 @@ function NewProduct() {
                     <label>
                         <input
                             type="checkbox"
-                            value={permission.pending}
                             name="pending"
                             onChange={handelChange}
+                            checked={permission.pending}
                         />
                         pending
                     </label>
                     <label>
                         <input
                             type="checkbox"
-                            value={permission.active}
                             name="active"
                             onChange={handelChange}
+                            checked={permission.active}
                         />
                         active
                     </label>
                     <label>
                         <input
                             type="checkbox"
-                            value={permission.inActive}
                             name="inActive"
                             onChange={handelChange}
+                            checked={permission.inActive}
                         />
                         inActive
                     </label>
                     <label>
                         <input
                             type="checkbox"
-                            value={permission.create}
                             name="create"
                             onChange={handelChange}
+                            checked={permission.create}
                         />
                         create
                     </label>
                     <label>
                         <input
                             type="checkbox"
-                            value={permission.read}
                             name="read"
                             onChange={handelChange}
+                            checked={permission.read}
                         />
                         read
                     </label>
                     <label>
                         <input
                             type="checkbox"
-                            value={permission.edit}
                             name="edit"
                             onChange={handelChange}
+                            checked={permission.edit}
                         />
                         edit
                     </label>
                     <label>
                         <input
                             type="checkbox"
-                            value={permission.delete}
                             name="delete"
                             onChange={handelChange}
+                            checked={permission.delete}
                         />
                         delete
                     </label>

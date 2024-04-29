@@ -69,8 +69,13 @@ export const editProduct = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const response = await axios.patch(`http://localhost:5000/products/${payload.id}`, {
-                title: payload.title
+                image: payload.image,
+                name: payload.name,
+                price: payload.price,
+                status: payload.status,
+                permissions: payload.permissions
             })
+            console.log(response.data)
             return response.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message)
@@ -84,7 +89,8 @@ const dataSlice = createSlice({
     reducers: {
         edit: (state, action) => {
             state.editedProduct = []
-            state.editedProduct.push(state.todo.find(item => item.id === action.payload.id))
+            state.editedProduct.push(state.products.find(item => item.id === action.payload.id))
+            console.log(state.editedProduct)
         },
     },
     extraReducers: (builder) => {
@@ -127,9 +133,14 @@ const dataSlice = createSlice({
             }),
             builder.addCase(editProduct.fulfilled, (state, action) => {
                 state.loading = false;
-                const selectedItem = state.todo.find(item => item.id === action.payload.id)
-                selectedItem.title = action.payload.title
-                state.editedTodo = []
+                const selectedItem = state.products.find(item => item.id === Number(action.payload.id));
+                console.log(selectedItem);
+                selectedItem.name = action.payload.name;
+                selectedItem.image = action.payload.image;
+                selectedItem.price = action.payload.price;
+                selectedItem.status = action.payload.status;
+                selectedItem.permissions = action.payload.permissions;
+                state.editedProduct = [];
             })
 
 
