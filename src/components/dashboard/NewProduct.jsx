@@ -41,7 +41,6 @@ function NewProduct() {
 
     const handelChange = (e) => {
         const { name } = e.target;
-        console.log(name)
         setPermission({
             ...permission,
             [name]: !permission[name]
@@ -55,7 +54,7 @@ function NewProduct() {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (!name || !image || price < 0) return (null, setError("wrong name or image or price"))
+        if (!name || !image || price < 0) return (null, setError("wrong name or image or price"));
         const permissions = [];
         Object.entries(permission).forEach(([key, value]) => {
             value && permissions.push(key)
@@ -66,7 +65,7 @@ function NewProduct() {
             name: name,
             price: Number(price),
             status: status,
-            permission: permissions
+            permissions: permissions
         }) : addProduct({
             image: image,
             name: name,

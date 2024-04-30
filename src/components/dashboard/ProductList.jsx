@@ -75,7 +75,7 @@ function ProductList() {
                             <td>
                                 <button
                                     disabled={item.id !== id}
-                                    class={`w-7 aspect-[5/3] rounded-lg relative before:absolute before:start-1 before:top-0.5 before:w-1 before:aspect-square before:rounded-full before:bg-gray-600 before:p-1.5 ${item.status ? "before:translate-x-full bg-blue-300" : "before:translate-x-0 bg-gray-300"}`}
+                                    class={`w-7 aspect-[5/3] rounded-lg relative before:absolute before:start-1 before:top-0.5 before:w-1 before:aspect-square before:rounded-full before:bg-gray-600 before:p-1.5 before:duration-300 ${item.status ? "before:translate-x-full bg-blue-300" : "before:translate-x-0 bg-gray-300"}`}
                                     onClick={() => {
                                         dispatch(toggleProduct({
                                             id,

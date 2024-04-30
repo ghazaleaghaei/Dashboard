@@ -54,7 +54,7 @@ export const toggleProduct = createAsyncThunk(
     'products/toggleProduct',
     async (payload, thunkAPI) => {
         try {
-            const response = await axios.patch(`http://localhost:5000/procuts/${payload.id}`, {
+            const response = await axios.patch(`http://localhost:5000/products/${payload.id}`, {
                 status: payload.status
             })
             return response.data
@@ -65,7 +65,7 @@ export const toggleProduct = createAsyncThunk(
 )
 
 export const editProduct = createAsyncThunk(
-    'products/editAsyncProduct',
+    'products/editProduct',
     async (payload, thunkAPI) => {
         try {
             const response = await axios.patch(`http://localhost:5000/products/${payload.id}`, {
@@ -90,7 +90,6 @@ const dataSlice = createSlice({
         edit: (state, action) => {
             state.editedProduct = []
             state.editedProduct.push(state.products.find(item => item.id === action.payload.id))
-            console.log(state.editedProduct)
         },
     },
     extraReducers: (builder) => {
@@ -132,15 +131,15 @@ const dataSlice = createSlice({
                 state.loading = true;
             }),
             builder.addCase(editProduct.fulfilled, (state, action) => {
+                console.log(state.products[0]);
+                const selectedProduct = state.products.find(item => item.id === action.payload.id);
+                selectedProduct.image = action.payload.image;
+                selectedProduct.name = action.payload.name;
+                selectedProduct.price = action.payload.price;
+                selectedProduct.permissions = action.payload.permissions;
+                selectedProduct.status = action.payload.status;
                 state.loading = false;
-                const selectedItem = state.products.find(item => item.id === Number(action.payload.id));
-                console.log(selectedItem);
-                selectedItem.name = action.payload.name;
-                selectedItem.image = action.payload.image;
-                selectedItem.price = action.payload.price;
-                selectedItem.status = action.payload.status;
-                selectedItem.permissions = action.payload.permissions;
-                state.editedProduct = [];
+
             })
 
 
