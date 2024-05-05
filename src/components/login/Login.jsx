@@ -14,7 +14,7 @@ function Login() {
         !isAuthenticated && setError("wrong email or password")
     }
     useEffect(() => {
-        if (isAuthenticated) navigate("/dashboard", { replace: true })
+        if (isAuthenticated) navigate("/dashboard/products", { replace: true })
     }, [isAuthenticated, navigate])
     return (
         <section class="bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 h-screen flex items-center">

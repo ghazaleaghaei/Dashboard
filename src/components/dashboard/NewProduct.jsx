@@ -7,7 +7,7 @@ function NewProduct() {
     const location = useLocation()
     const edit = location.pathname.split("/")[2] === "edit" ? true : false
     const id = edit && Number(location.pathname.split("/")[3])
-    const { loading, editedProduct } = useSelector((state) => state.productsData)
+    const { loading, editedProduct, length } = useSelector((state) => state.productsData)
     const [name, setName] = useState("")
     const [image, setImage] = useState("")
     const [price, setPrice] = useState(0)
@@ -25,7 +25,7 @@ function NewProduct() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    useEffect(() => {
+    edit && useEffect(() => {
         setName(editedProduct[0].name),
             setImage(editedProduct[0].image),
             setPrice(editedProduct[0].price),
@@ -71,9 +71,10 @@ function NewProduct() {
             name: name,
             price: Number(price),
             status: status,
-            permissions: permissions
+            permissions: permissions,
+            length: length,
         }))
-        navigate("/dashboard", { replace: true })
+        navigate(`/dashboard/products?_page=${Math.ceil(length / 6)}`, { replace: true })
     }
 
     return (

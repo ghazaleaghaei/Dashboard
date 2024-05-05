@@ -13,7 +13,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Header />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/dashboard" element={
+                        <Route path="/dashboard/products" element={
                             <ProtectedRouted>
                                 <Dashboard />
                             </ProtectedRouted>}
@@ -31,8 +31,8 @@ function App() {
                             <Route path="price/:id" element={<p>title</p>} />
                             <Route path="inventory/:id" element={<p>title</p>} />
                         </Route>
-                        <Route path="dashboard/add" element={<NewProduct />} />
-                        <Route path="dashboard/edit/:id" element={<NewProduct />} />
+                        <Route path="dashboard/products/add" element={<NewProduct />} />
+                        <Route path="dashboard/products/edit/:id" element={<NewProduct />} />
                     </Routes>
                 </AuthProvider>
             </Provider>

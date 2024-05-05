@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react"
-import { Arrow, EditIcon, Plus, Trash, useFetchData } from "../Exports"
+import { Arrow, EditIcon, Plus, Trash, Pagination } from "../Exports"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteProduct, edit, getProducts, toggleProduct } from "../../features/data/dataSlice"
-import { useNavigate } from "react-router-dom"
+import { deleteProduct, edit, getProducts, getProductsLength, toggleProduct } from "../../features/data/dataSlice"
+import { useLocation, useNavigate } from "react-router-dom"
 
 function ProductList() {
     const [id, setId] = useState(0)
-    const { products, loading, error } = useSelector((state) => state.productsData)
+    const { products, loading, error, length } = useSelector((state) => state.productsData)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const page = useLocation()
+    const pageNum = page.search.length == 0 ? 0 : Number(page?.search?.split("=")[1])
     useEffect(() => {
-        dispatch(getProducts())
-    }, [])
-
+        dispatch(getProducts({ pageNum: pageNum }))
+        dispatch(getProductsLength())
+    }, [pageNum])
     if (loading) return <p>loading.....</p>
     if (error.length > 0) return <p>{error}</p>
+    console.log(products)
     return (
         <div class="rounded-lg bg-white border shadow-md p-3 m-3 overflow-auto">
             <div class="flex gap-4">
@@ -56,34 +59,34 @@ function ProductList() {
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm">
-                    {products.map(item =>
+                    {products?.map(item =>
                         <tr
-                            class={`*:px-4 *:py-2 border-b last:border-b-0 ${item.id === id && "bg-sky-50"}`}
-                            key={item.id}
+                            key={item?.id}
+                            class={`*:px-4 *:py-2 border-b last:border-b-0 ${item?.id === id && "bg-sky-50"}`}
                         >
                             <td class="flex gap-2">
                                 <input
                                     type="checkbox"
-                                    checked={item.id === id}
+                                    checked={item?.id === id}
                                     onChange={() => {
-                                        item.id === id ? setId(0) : setId(item.id)
+                                        item?.id === id ? setId(0) : setId(item?.id)
                                     }} />
-                                <img src={item.image} alt={item.name} class="w-10 aspect-[4/5] object-cover ms-5" />
+                                <img src={item?.image} alt={item?.name} class="w-10 aspect-[4/5] object-cover ms-5" />
                             </td>
-                            <td>{item.name}</td>
-                            <td>{item.price}&nbsp;Tk</td>
+                            <td>{item?.name}</td>
+                            <td>{item?.price}&nbsp;Tk</td>
                             <td>
                                 <button
-                                    disabled={item.id !== id}
-                                    class={`w-7 aspect-[5/3] rounded-lg relative before:absolute before:start-1 before:top-0.5 before:w-1 before:aspect-square before:rounded-full before:bg-gray-600 before:p-1.5 before:duration-300 ${item.status ? "before:translate-x-full bg-blue-300" : "before:translate-x-0 bg-gray-300"}`}
+                                    disabled={item?.id !== id}
+                                    class={`w-7 aspect-[5/3] rounded-lg relative before:absolute before:start-1 before:top-0.5 before:w-1 before:aspect-square before:rounded-full before:bg-gray-600 before:p-1.5 before:duration-300 ${item?.status ? "before:translate-x-full bg-blue-300" : "before:translate-x-0 bg-gray-300"}`}
                                     onClick={() => {
                                         dispatch(toggleProduct({
                                             id,
-                                            status: !item.status
+                                            status: !item?.status
                                         }))
                                     }} />
                             </td>
-                            <td>{item.permissions.map((permission, index) =>
+                            <td>{item?.permissions.map((permission, index) =>
                                 <span key={index}
                                     class={`p-1 border rounded-md mx-1 ${permission === "pending" ? "bg-yellow-100 text-yellow-500" : permission === "read" ? "bg-blue-100 text-blue-500" : permission === "active" ? "bg-sky-100 text-sky-500" : permission === "delete" ? "bg-red-100 text-red-500" : permission === "edit" ? "bg-gray-100 text-500" : "bg-green-100 text-green-500"}`}>
                                     {permission}
@@ -98,14 +101,14 @@ function ProductList() {
                                             navigate(`/dashboard/edit/${id}`);
                                             dispatch(edit({ id }))
                                         }}
-                                        disabled={item.id !== id}
+                                        disabled={item?.id !== id}
                                     >
                                         <EditIcon class="w-5 aspect-square fill-gray-600" />
                                     </button>
                                     <button
                                         class="hover:bg-red-200 duration-500 rounded-full w-fit aspect-square p-2 group"
-                                        onClick={() => { dispatch(deleteProduct({ id })) }}
-                                        disabled={item.id !== id}
+                                        onClick={() => { dispatch(deleteProduct({ id: id, length: length })) }}
+                                        disabled={item?.id !== id}
                                     >
                                         <Trash class="w-5 aspect-square fill-gray-600 group-hover:fill-red-600" />
                                     </button>
@@ -114,7 +117,7 @@ function ProductList() {
                         </tr>)}
                 </tbody>
             </table>
-
+            <Pagination length={length} />
         </div>
     )
 }

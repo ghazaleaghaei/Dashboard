@@ -20,6 +20,7 @@ import Trash from "./svg/Trash"
 import Plus from "./svg/Plus"
 import EditIcon from "./svg/EditIcon"
 import NewProduct from "./dashboard/NewProduct"
+import Pagination from "./dashboard/Pagination"
 
 export { Header }
 export { Arrow }
@@ -43,3 +44,4 @@ export { Trash }
 export { Plus }
 export { EditIcon }
 export { NewProduct }
+export { Pagination }
