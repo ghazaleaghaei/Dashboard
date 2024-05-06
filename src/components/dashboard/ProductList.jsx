@@ -17,7 +17,6 @@ function ProductList() {
     }, [pageNum])
     if (loading) return <p>loading.....</p>
     if (error.length > 0) return <p>{error}</p>
-    console.log(products)
     return (
         <div class="rounded-lg bg-white border shadow-md p-3 m-3 overflow-auto">
             <div class="flex gap-4">
@@ -98,7 +97,7 @@ function ProductList() {
                                     <button
                                         class="hover:bg-gray-200 duration-500 rounded-full w-fit aspect-square p-2"
                                         onClick={() => {
-                                            navigate(`/dashboard/edit/${id}`);
+                                            navigate(`/dashboard/products/edit/${id}`);
                                             dispatch(edit({ id }))
                                         }}
                                         disabled={item?.id !== id}
@@ -117,7 +116,10 @@ function ProductList() {
                         </tr>)}
                 </tbody>
             </table>
-            <Pagination length={length} />
+            <Pagination
+                length={length}
+                pageNum={pageNum}
+            />
         </div>
     )
 }

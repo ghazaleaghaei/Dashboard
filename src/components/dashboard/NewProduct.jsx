@@ -5,8 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom"
 
 function NewProduct() {
     const location = useLocation()
-    const edit = location.pathname.split("/")[2] === "edit" ? true : false
-    const id = edit && Number(location.pathname.split("/")[3])
+    const edit = location.pathname.split("/")[3] === "edit" ? true : false
+    const id = edit && Number(location.pathname.split("/")[4])
     const { loading, editedProduct, length } = useSelector((state) => state.productsData)
     const [name, setName] = useState("")
     const [image, setImage] = useState("")

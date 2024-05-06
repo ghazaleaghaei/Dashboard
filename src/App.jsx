@@ -13,12 +13,12 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Header />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/dashboard/products" element={
+                        <Route path="/dashboard" element={
                             <ProtectedRouted>
                                 <Dashboard />
-                            </ProtectedRouted>}
-                        >
+                            </ProtectedRouted>}>
                             <Route index element={<Main />} />
+                            <Route path="products" element={<Main />} />
                             <Route path="user" element={<p>user</p>} />
                             <Route path="store" element={<p>store</p>} />
                             <Route path="price" element={<p>price</p>} />

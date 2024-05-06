@@ -147,7 +147,7 @@
       "image": "blob:http://localhost:5173/c828dffa-ecb2-49bf-aa73-4eaf52941773",
       "name": "wcoffee maker",
       "price": 494,
-      "status": true,
+      "status": false,
       "permissions": [
         "read",
         "delete"
@@ -292,93 +292,13 @@
       "image": "blob:http://localhost:5173/f35c0917-a40b-46d3-a1a8-cd0d90b613af",
       "name": "3333333",
       "price": 444,
-      "status": true,
+      "status": false,
       "permissions": [
         "active"
       ]
-    },
-    {
-      "id": 1714912218924,
-      "image": "blob:http://localhost:5173/0fbb2b16-f110-4c64-9d4d-20b63c45d5a0",
-      "name": "ffff",
-      "price": 666,
-      "status": true,
-      "permissions": [
-        "active",
-        "inActive",
-        "create"
-      ]
-    },
-    {
-      "id": 1714912504773,
-      "image": "blob:http://localhost:5173/8e5da0c6-9b6f-4f91-b005-ba2d919701dd",
-      "name": "gggggg",
-      "price": 55,
-      "status": false,
-      "permissions": [
-        "active",
-        "inActive",
-        "create"
-      ]
-    },
-    {
-      "id": 1714929763985,
-      "image": "blob:http://localhost:5173/889f2a84-be74-49aa-ae24-079f7f2a0764",
-      "name": "ooo",
-      "price": 56,
-      "status": false,
-      "permissions": []
-    },
-    {
-      "id": 1714929792717,
-      "image": "blob:http://localhost:5173/9ead9e7a-fca5-4c30-80c1-c185cba01a31",
-      "name": "lllll",
-      "price": 6,
-      "status": false,
-      "permissions": []
-    },
-    {
-      "id": 1714929850095,
-      "image": "blob:http://localhost:5173/3d7103c0-a1b6-446a-a780-dfccb5f99c66",
-      "name": "ttttt",
-      "price": 6,
-      "status": false,
-      "permissions": []
-    },
-    {
-      "id": 1714929936604,
-      "image": "blob:http://localhost:5173/83a85fed-3b97-49c8-ac88-6f8fe34ddcfb",
-      "name": "yop",
-      "price": 66,
-      "status": false,
-      "permissions": []
-    },
-    {
-      "id": 1714929958100,
-      "image": "blob:http://localhost:5173/20dc6e98-cfc5-417d-9cf5-008ed1b3dd71",
-      "name": "hu",
-      "price": 7,
-      "status": false,
-      "permissions": []
-    },
-    {
-      "id": 1714929968685,
-      "image": "blob:http://localhost:5173/4c10ba98-aea8-4da2-a3af-cc182d749439",
-      "name": "kl",
-      "price": 90,
-      "status": false,
-      "permissions": []
-    },
-    {
-      "id": 1714930001330,
-      "image": "blob:http://localhost:5173/574c3f42-38dc-4532-b8b3-f0a3f18cf579",
-      "name": "lpo",
-      "price": 87,
-      "status": false,
-      "permissions": []
     }
   ],
   "productsLength": {
-    "length": 27
+    "length": 21
   }
 }
