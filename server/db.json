@@ -145,7 +145,7 @@
     {
       "id": 1,
       "image": "blob:http://localhost:5173/c828dffa-ecb2-49bf-aa73-4eaf52941773",
-      "name": "wcoffee maker",
+      "name": "coffe makerrrrrrr",
       "price": 494,
       "status": false,
       "permissions": [
@@ -259,19 +259,9 @@
     },
     {
       "id": 1714042887227,
-      "image": "blob:http://localhost:5173/28a007ec-b526-4439-be27-1576177abe5e",
+      "image": "blob:http://localhost:5173/80ed0da2-2956-4753-977f-d3e79aeaaa02",
       "name": "dddddd",
       "price": 444,
-      "status": true,
-      "permissions": [
-        "active"
-      ]
-    },
-    {
-      "id": 1714911207238,
-      "image": "blob:http://localhost:5173/5b7205cc-f7f8-4b41-8643-04c730c91557",
-      "name": "dddddddd",
-      "price": 3443,
       "status": true,
       "permissions": [
         "active"
@@ -282,23 +272,34 @@
       "image": "blob:http://localhost:5173/f1fa0771-06f3-46b7-ba63-2a5fafbd89dc",
       "name": "fhsaha",
       "price": 33,
-      "status": true,
+      "status": false,
       "permissions": [
-        "active"
+        "active",
+        "create"
       ]
     },
     {
-      "id": 1714911444994,
-      "image": "blob:http://localhost:5173/f35c0917-a40b-46d3-a1a8-cd0d90b613af",
-      "name": "3333333",
-      "price": 444,
-      "status": false,
+      "id": 1715082697215,
+      "image": "blob:http://localhost:5173/6a31fe19-8411-4b38-ab68-867d6db45e8c",
+      "name": "tte",
+      "price": 56,
+      "status": true,
       "permissions": [
-        "active"
+        "read"
+      ]
+    },
+    {
+      "id": 1715082746177,
+      "image": "blob:http://localhost:5173/036ae85b-e998-492d-9f0e-d260e537649f",
+      "name": ";[;[;[0i",
+      "price": 90,
+      "status": true,
+      "permissions": [
+        "delete"
       ]
     }
   ],
   "productsLength": {
-    "length": 21
+    "length": 0
   }
 }

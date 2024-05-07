@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { Arrow, EditIcon, Plus, Trash, Pagination } from "../Exports"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteProduct, edit, getProducts, getProductsLength, toggleProduct } from "../../features/data/dataSlice"
+import { deleteAllProducts, deleteProduct, edit, getProducts, getProductsLength, toggleProduct } from "../../features/data/dataSlice"
 import { useLocation, useNavigate } from "react-router-dom"
 
 function ProductList() {
     const [id, setId] = useState(0)
+    const [checkedAll, setCheckedAll] = useState(false)
     const { products, loading, error, length } = useSelector((state) => state.productsData)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -27,7 +28,11 @@ function ProductList() {
                     <Plus class="w-5 aspect-square fill-teal-500" />
                     ADD
                 </button>
-                <button class="bg-rose-50 border border-2 border-rose-400 rounded-md px-2 py-1.5 font-semibold text-sm text-rose-500 flex items-center gap-1 duration-300 hover:scale-95">
+                <button
+                    disabled={!checkedAll}
+                    class="bg-rose-50 border border-2 border-rose-400 rounded-md px-2 py-1.5 font-semibold text-sm text-rose-500 flex items-center gap-1 duration-300 hover:scale-95"
+                    onClick={() => { dispatch(deleteAllProducts()) }}
+                >
                     <Trash class="w-5 aspect-square fill-rose-500" />
                     Delete
                 </button>
@@ -47,7 +52,13 @@ function ProductList() {
                 <thead>
                     <tr class="text-sm text-gray-800 *:font-normal *:bg-gray-100 *:rounded-sm *:px-4 *:py-1 *:font-medium *:border *:border-2 *:border-white *:text-start">
                         <th class="flex gap-2">
-                            <input type="checkbox" />
+                            <input
+                                type="checkbox"
+                                checked={checkedAll}
+                                onChange={() => {
+                                    setCheckedAll(!checkedAll)
+                                }}
+                            />
                             Image
                         </th>
                         <th>Name</th>
@@ -66,7 +77,7 @@ function ProductList() {
                             <td class="flex gap-2">
                                 <input
                                     type="checkbox"
-                                    checked={item?.id === id}
+                                    checked={item?.id === id || checkedAll}
                                     onChange={() => {
                                         item?.id === id ? setId(0) : setId(item?.id)
                                     }} />

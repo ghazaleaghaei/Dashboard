@@ -74,7 +74,7 @@ function NewProduct() {
             permissions: permissions,
             length: length,
         }))
-        navigate(`/dashboard/products?_page=${Math.ceil(length / 6)}`, { replace: true })
+        edit ? navigate(-1) : navigate(`/dashboard/products?_page=${Math.ceil(length / 6)}`, { replace: true })
     }
 
     return (

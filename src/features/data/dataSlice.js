@@ -48,7 +48,6 @@ export const addProduct = createAsyncThunk(
                     length: payload.length + 1
                 })
             ]).then(axios.spread((Info) => {
-                console.log(Info.data)
                 return Info.data
             }));
         } catch (error) {
@@ -68,6 +67,22 @@ export const deleteProduct = createAsyncThunk(
                 })
             ])
             return { id: payload.id }
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message)
+        }
+    },
+)
+
+export const deleteAllProducts = createAsyncThunk(
+    'products/deleteAllProducts',
+    async (_, thunkAPI) => {
+        try {
+            await axios.all([
+                axios.delete("http://localhost:5000/products"),
+                axios.put("http://localhost:5000/productsLength", {
+                    length: 0
+                })
+            ])
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message)
         }
@@ -148,6 +163,14 @@ const dataSlice = createSlice({
                 state.length--
                 state.products = state.products.filter(item => item.id !== action.payload.id)
             }),
+            builder.addCase(deleteAllProducts.pending, (state, action) => {
+                state.loading = true;
+            }),
+            builder.addCase(deleteAllProducts.fulfilled, (state, action) => {
+                state.loading = false;
+                state.length = 0
+                state.products = []
+            }),
             builder.addCase(toggleProduct.fulfilled, (state, action) => {
                 const selectedProduct = state.products.find(item => item.id === action.payload.id);
                 selectedProduct.status = action.payload.status;
@@ -156,7 +179,6 @@ const dataSlice = createSlice({
                 state.loading = true;
             }),
             builder.addCase(editProduct.fulfilled, (state, action) => {
-                console.log(state.products[0]);
                 const selectedProduct = state.products.find(item => item.id === action.payload.id);
                 selectedProduct.image = action.payload.image;
                 selectedProduct.name = action.payload.name;
